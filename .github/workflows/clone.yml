@@ -1,0 +1,29 @@
+name: Clone "The United Classes of Calculus at NCU" Website
+
+on:
+  schedule:
+    - cron: '0 4,16 * * *'  # 04:00 and 16:00 UTC every day
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  clone:    
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.PAT }}
+      - name: Run wget
+        run: wget --config=.wgetrc --content-on-error -L https://mathweb.math.ncu.edu.tw/calc/
+        continue-on-error: true
+      - name: Get current time
+        id: time
+        run: echo "::set-output name=now::"$(date -Iseconds)""
+      - name: Commit to repository
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: ${{ format('[{0}] Automatic clone website changes', steps.time.outputs.now) }}
+          file_pattern: '*.html *.pdf'
