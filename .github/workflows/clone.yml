@@ -9,8 +9,11 @@ permissions:
   contents: read
 
 jobs:
-  clone:    
+  clone:
     runs-on: ubuntu-latest
+    outputs:
+      now: ${{ steps.get-time.outputs.now }}
+      changes_detected: ${{ steps.auto-commit.outputs.changes_detected }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -20,10 +23,32 @@ jobs:
         run: wget --config=.wgetrc --content-on-error -L https://mathweb.math.ncu.edu.tw/calc/
         continue-on-error: true
       - name: Get current time
-        id: time
+        id: get-time
         run: echo "::set-output name=now::"$(date -Iseconds)""
+      - name: Commit to repository
+        id: auto-commit
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: ${{ format('[{0}] Automatic clone website changes', steps.get-time.outputs.now) }}
+          file_pattern: '*.html *.pdf'
+  generate-badge-json:
+    runs-on: ubuntu-latest
+    needs: clone
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: badge
+          token: ${{ secrets.PAT }}
+      - name: Generate JSONs for badges (changes detected)
+        if: needs.clone.outputs.changes_detected  == 'true'
+        run: python generate_badge_json.py -c ${{ needs.clone.outputs.now }}
+      - name: Generate JSONs for badges (NO changes detected)
+        if: needs.clone.outputs.changes_detected  == 'false'
+        run: python generate_badge_json.py ${{ needs.clone.outputs.now }}
       - name: Commit to repository
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: ${{ format('[{0}] Automatic clone website changes', steps.time.outputs.now) }}
-          file_pattern: '*.html *.pdf'
+          commit_message: ${{ format('[{0}] Update latest clone information', needs.clone.outputs.now) }}
+          branch: badge
+          file_pattern: '*.json'
