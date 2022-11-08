@@ -15,6 +15,10 @@ jobs:
       now: ${{ steps.get-time.outputs.now }}
       changes_detected: ${{ steps.auto-commit.outputs.changes_detected }}
     steps:
+      - name: Setup timezone
+        uses: zcong1993/setup-timezone@master
+        with:
+          timezone: Asia/Taipei
       - name: Checkout
         uses: actions/checkout@v3
         with:
