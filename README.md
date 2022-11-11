@@ -1,11 +1,11 @@
 # NCU Calculus Website Mirror
 
 [![](https://github.com/gpwaob92679/NCU-calculus-website-mirror/actions/workflows/clone.yml/badge.svg)](https://github.com/gpwaob92679/NCU-calculus-website-mirror/actions/workflows/clone.yml)
-[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fgpwaob92679%2FNCU-calculus-website-mirror%2Fbadge%2Ftimestamp.json)]()
-[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fgpwaob92679%2FNCU-calculus-website-mirror%2Fbadge%2Fchanges.json)]()
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fgpwaob92679%2FNCU-calculus-website-mirror%2Fbadge%2Fclone%2Ftimestamp.json)]()
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fgpwaob92679%2FNCU-calculus-website-mirror%2Fbadge%2Fclone%2Fchanges.json)]()
 
 [![](https://github.com/gpwaob92679/NCU-calculus-website-mirror/actions/workflows/pages.yml/badge.svg)](https://github.com/gpwaob92679/NCU-calculus-website-mirror/actions/workflows/pages.yml)
-
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fgpwaob92679%2FNCU-calculus-website-mirror%2Fbadge%2Fpages%2Ftimestamp.json)]()
 
 
 This repository uses [Actions](https://github.com/gpwaob92679/NCU-calculus-website-mirror/actions) to automatically mirror [the website of "The United Classes of Calculus at NCU"](https://mathweb.math.ncu.edu.tw/calc/).
