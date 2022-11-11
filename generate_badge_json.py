@@ -5,32 +5,20 @@ CLOCK_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill=
 DIFF_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="#fff"><path d="M12.5 6.75a.75.75 0 00-1.5 0V9H8.75a.75.75 0 000 1.5H11v2.25a.75.75 0 001.5 0V10.5h2.25a.75.75 0 000-1.5H12.5V6.75zM8.75 16a.75.75 0 000 1.5h6a.75.75 0 000-1.5h-6z"></path><path fill-rule="evenodd" d="M5 1a2 2 0 00-2 2v18a2 2 0 002 2h14a2 2 0 002-2V7.018a2 2 0 00-.586-1.414l-4.018-4.018A2 2 0 0014.982 1H5zm-.5 2a.5.5 0 01.5-.5h9.982a.5.5 0 01.354.146l4.018 4.018a.5.5 0 01.146.354V21a.5.5 0 01-.5.5H5a.5.5 0 01-.5-.5V3z"></path></svg>'
 
 
-def dump_timestamp(args) -> None:
-    timestamp_dict = {
+def dump_badge(file_path: str, label: str, message: str, color: str,
+               logoSvg: str):
+    obj = {
         'schemaVersion': 1,
-        'label': 'Timestamp',
-        'message': args.timestamp,
-        'color': 'informational',
-        'logoSvg': CLOCK_SVG,
+        'label': label,
+        'message': message,
+        'color': color,
+        'logoSvg': logoSvg,
         'style': 'flat',
         'cacheSeconds': 300,
     }
-    with open('timestamp.json', 'w', encoding='utf-8') as f:
-        json.dump(timestamp_dict, f, indent=2)
 
-
-def dump_changes(args) -> None:
-    changes_dict = {
-        'schemaVersion': 1,
-        'label': 'Changes since last clone',
-        'message': 'Yes' if args.changes else 'No',
-        'color': 'orange' if args.changes else 'lightgrey',
-        'logoSvg': DIFF_SVG,
-        'style': 'flat',
-        'cacheSeconds': 300,
-    }
-    with open('changes.json', 'w', encoding='utf-8') as f:
-        json.dump(changes_dict, f, indent=2)
+    with open(file_path, 'w', encoding='utf-8') as f:
+        json.dump(obj, f, indent=2)
 
 
 def main():
@@ -40,8 +28,10 @@ def main():
     args = parser.parse_args()
     print(args)
 
-    dump_timestamp(args)
-    dump_changes(args)
+    dump_badge('timestamp.json', 'Latest clone', args.timestamp,
+               'informational', CLOCK_SVG)
+    dump_badge('changes.json', 'Changes', 'Yes' if args.changes else 'No',
+               'orange' if args.changes else 'lightgrey', DIFF_SVG)
 
 
 if __name__ == '__main__':
