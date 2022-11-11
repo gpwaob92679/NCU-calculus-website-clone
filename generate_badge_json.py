@@ -28,9 +28,9 @@ def main():
     args = parser.parse_args()
     print(args)
 
-    dump_badge('timestamp.json', 'Latest clone', args.timestamp,
+    dump_badge('clone/timestamp.json', 'Latest clone', args.timestamp,
                'informational', CLOCK_SVG)
-    dump_badge('changes.json', 'Changes', 'Yes' if args.changes else 'No',
+    dump_badge('clone/changes.json', 'Changes', 'Yes' if args.changes else 'No',
                'orange' if args.changes else 'lightgrey', DIFF_SVG)
 
 
