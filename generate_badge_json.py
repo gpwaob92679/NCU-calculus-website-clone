@@ -33,6 +33,10 @@ def main():
     dump_badge('clone/changes.json', 'Changes', 'Yes' if args.changes else 'No',
                'orange' if args.changes else 'lightgrey', DIFF_SVG)
 
+    if args.changes:
+        dump_badge('pages/timestamp.json', 'Latest clone with changes',
+                   args.timestamp, 'informational', CLOCK_SVG)
+
 
 if __name__ == '__main__':
     main()
