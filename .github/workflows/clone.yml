@@ -34,7 +34,7 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: ${{ format('[{0}] Automatic clone', steps.get-time.outputs.now) }}
-          file_pattern: '*.html *.pdf'
+          file_pattern: '*.html *.pdf *.png'
   generate-badge-json:
     runs-on: ubuntu-latest
     needs: clone
